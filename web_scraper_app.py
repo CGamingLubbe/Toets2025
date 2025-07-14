@@ -6,6 +6,7 @@ from googlesearch import search
 import re
 import datetime
 import streamlit as st
+import webbrowser
 
 COUNTRY_CODE_MAP = {
     '+1': 'USA',
@@ -77,8 +78,8 @@ def get_company_details(url):
 
             return name, address, phone, email, country_from_code
     except:
-        return "N/A", "N/A", "N/A", "N/A"
-    return "N/A", "N/A", "N/A", "N/A"
+        return "N/A", "N/A", "N/A", "N/A", "N/A"
+    return "N/A", "N/A", "N/A", "N/A", "N/A"
 
 # The main scraping function
 def run_scraper(max_duration_minutes, stop_flag):
@@ -183,7 +184,7 @@ def run_scraper(max_duration_minutes, stop_flag):
 # Try to open the Excel file at the end
 if st.button("📂 Open Excel Results"):
     try:
-        os.startfile("companies.xlsx")  # ✅ Only opens if user clicks button
+        webbrowser.open("companies.xlsx")
     except Exception as e:
         st.warning(f"⚠️ Could not open the file: {e}")
 
