@@ -81,6 +81,11 @@ def get_company_details(url):
         return "N/A", "N/A", "N/A", "N/A", "N/A"
     return "N/A", "N/A", "N/A", "N/A", "N/A"
 
+start_time = datetime.datetime.now()
+st.info(f"🕒 Scraping Started At: {start_time.strftime('%H:%M:%S')}")
+st.info(f"⏳ Scheduled Duration: {duration} minutes")
+
+
 # The main scraping function
 def run_scraper(max_duration_minutes, stop_flag):
     timer_placeholder = st.empty()
@@ -188,6 +193,14 @@ if st.button("📂 Open Excel Results"):
     except Exception as e:
         st.warning(f"⚠️ Could not open the file: {e}")
 
+with open("companies.xlsx", "rb") as file:
+    st.download_button(
+        label="⬇️ Download Excel File",
+        data=file,
+        file_name="companies.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
     
 
 # Streamlit user interface
@@ -198,7 +211,7 @@ def main():
     stop_flag = st.checkbox("Stop after current run")
     if st.button("Start Scraping"):
         run_scraper(duration, lambda: stop_flag)
-        
+
     if st.button("🗑️ Clear All Saved Results"):
         output_file = "companies.xlsx"
         empty_df = pd.DataFrame(columns=["Company Name", "Company Website", "Contact Number", "Email Address", "Address", "Keyword"])
