@@ -81,10 +81,6 @@ def get_company_details(url):
         return "N/A", "N/A", "N/A", "N/A", "N/A"
     return "N/A", "N/A", "N/A", "N/A", "N/A"
 
-start_time = datetime.datetime.now()
-st.info(f"🕒 Scraping Started At: {start_time.strftime('%H:%M:%S')}")
-st.info(f"⏳ Scheduled Duration: {duration} minutes")
-
 
 # The main scraping function
 def run_scraper(max_duration_minutes, stop_flag):
@@ -210,6 +206,10 @@ def main():
     duration = st.number_input("How long should it run? (minutes)", min_value=1, max_value=180, value=30)
     stop_flag = st.checkbox("Stop after current run")
     if st.button("Start Scraping"):
+        start_time = datetime.datetime.now()
+        st.info(f"🕒 Scraping Started At: {start_time.strftime('%H:%M:%S')}")
+        st.info(f"⏳ Scheduled Duration: {duration} minutes")
+
         run_scraper(duration, lambda: stop_flag)
 
     if st.button("🗑️ Clear All Saved Results"):
