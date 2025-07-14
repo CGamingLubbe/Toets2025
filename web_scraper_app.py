@@ -182,20 +182,6 @@ def run_scraper(max_duration_minutes, stop_flag):
             st.error("❌ Could not write to Excel. Please close the file first.")
 
 
-# Try to open the Excel file at the end
-if st.button("📂 Open Excel Results"):
-    try:
-        webbrowser.open("companies.xlsx")
-    except Exception as e:
-        st.warning(f"⚠️ Could not open the file: {e}")
-
-with open("companies.xlsx", "rb") as file:
-    st.download_button(
-        label="⬇️ Download Excel File",
-        data=file,
-        file_name="companies.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
 
     
 
@@ -220,6 +206,21 @@ def main():
             st.success("✅ All results cleared successfully.")
         except Exception as e:
             st.error(f"❌ Could not clear the file: {e}")
+
+    # Try to open the Excel file at the end
+    if st.button("📂 Open Excel Results"):
+        try:
+            webbrowser.open("companies.xlsx")
+        except Exception as e:
+            st.warning(f"⚠️ Could not open the file: {e}")
+
+    with open("companies.xlsx", "rb") as file:
+        st.download_button(
+            label="⬇️ Download Excel File",
+            data=file,
+            file_name="companies.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 
 
 if __name__ == "__main__":
