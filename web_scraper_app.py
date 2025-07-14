@@ -189,7 +189,7 @@ def run_scraper(max_duration_minutes, stop_flag):
 def main():
     st.title("🕸️ Company Web Scraper")
 
-    duration = st.number_input("How long should it run? (minutes)", min_value=1, max_value=180, value=30)
+    duration = st.number_input("How long should it run? (minutes)", min_value=1, max_value=500, value=30)
     stop_flag = st.checkbox("Stop after current run")
     if st.button("Start Scraping"):
         start_time = datetime.datetime.now()
@@ -210,7 +210,11 @@ def main():
     # Try to open the Excel file at the end
     if st.button("📂 Open Excel Results"):
         try:
-            webbrowser.open("companies.xlsx")
+            if os.path.exists("companies.xlsx"):
+                if st.button("📂 Open Excel File"):
+                    webbrowser.open("companies.xlsx")
+            else:
+                st.warning("⚠️ No Excel file found yet. Please run the scraper first.")
         except Exception as e:
             st.warning(f"⚠️ Could not open the file: {e}")
 
@@ -221,7 +225,12 @@ def main():
             file_name="companies.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-
+        if os.path.exists("companies.xlsx"):
+            with open("companies.xlsx", "rb") as file:
+                st.download_button("⬇️ Download Excel File", file, file_name="companies.xlsx")
+        else:
+            st.warning("⚠️ No file to download. Run the scraper first.")
+            
 
 if __name__ == "__main__":
     main()
