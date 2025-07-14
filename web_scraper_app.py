@@ -155,8 +155,6 @@ def run_scraper(max_duration_minutes, stop_flag):
                     st.write("📁 Current working directory:", os.getcwd())
                     st.write("💾 Output file will be saved to:", output_file)
 
-    pd.DataFrame([[1, 2, 3, 4, 5, 6]], columns=["Company Name", "Company Website", "Contact Number", "Email Address", "Address", "Keyword"]).to_excel("companies.xlsx", index=False)
-
     st.success("✅ Scraping session complete.")
     timer_placeholder.empty()
 
