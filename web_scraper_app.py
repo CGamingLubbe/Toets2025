@@ -155,6 +155,7 @@ def run_scraper(max_duration_minutes, stop_flag):
                     st.write("📁 Current working directory:", os.getcwd())
                     st.write("💾 Output file will be saved to:", output_file)
 
+    pd.DataFrame([[1, 2, 3, 4, 5, 6]], columns=["Company Name", "Company Website", "Contact Number", "Email Address", "Address", "Keyword"]).to_excel("companies.xlsx", index=False)
 
     st.success("✅ Scraping session complete.")
     timer_placeholder.empty()
@@ -169,7 +170,7 @@ def run_scraper(max_duration_minutes, stop_flag):
         output_file = "companies.xlsx"
 
         if os.path.exists(output_file):
-            df_existing = pd.read_excel(output_file, engine="openpyxl")
+            df_existing = pd.read_excel(output_file, index=False, engine="openpyxl")
             df_new = pd.DataFrame(data, columns=["Company Name", "Company Website", "Contact Number", "Email Address", "Address", "Keyword"])
             df_combined = pd.concat([df_existing, df_new], ignore_index=True)
         else:
